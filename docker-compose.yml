@@ -1,5 +1,6 @@
 services:
   web:
+    container_name: web
     image: nginx:latest
     working_dir: /var/www
     volumes:
@@ -12,6 +13,7 @@ services:
       - app-network
 
   php:
+    container_name: php
     build:
       context: .
       dockerfile: Dockerfile
@@ -27,6 +29,7 @@ services:
     image: mysql:8.4.0
     env_file:
       - .env
+    container_name: db
     environment:
       MYSQL_DATABASE: "$DB_DATABASE"
       MYSQL_USER: "$DB_USERNAME"
@@ -47,6 +50,7 @@ services:
       - app-network
 
   php_test:
+    container_name: php_test
     build:
       context: .
       dockerfile: Dockerfile
