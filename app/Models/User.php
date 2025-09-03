@@ -48,7 +48,7 @@ class User extends Model
         return User::findBy(['email' => $email]);
     }
 
-    public static function findByPhone(int $phone):User | null
+    public static function findByPhone(int $phone): User | null
     {
         return User::findBy(['phone' => $phone]);
     }
