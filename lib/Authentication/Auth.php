@@ -8,7 +8,11 @@ class Auth
 {
     public static function login($user): void
     {
-        $_SESSION['user']['id'] = $user->id;
+        $_SESSION['user'] = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'role_admin' => $user->role_admin
+        ];        
     }
 
     public static function user(): ?User
@@ -28,6 +32,6 @@ class Auth
 
     public static function logout(): void
     {
-        unset($_SESSION['user']['id']);
+        unset($_SESSION['user']);
     }
 }
