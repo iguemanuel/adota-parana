@@ -10,13 +10,14 @@ use Core\Database\ActiveRecord\Model;
  * @property string $name
  * @property string $email
  * @property string $encrypted_password
- * @property string $avatar_name
+ * @property string $phone
+ * @property bool $role_admin
  */
+
 class User extends Model
 {
     protected static string $table = 'users';
-    protected static array $columns = ['name', 'email', 'encrypted_password', 'avatar_name'];
-
+    protected static array $columns = ['name', 'email', 'encrypted_password', 'phone', 'role_admin'];
     protected ?string $password = null;
     protected ?string $password_confirmation = null;
 
@@ -24,9 +25,10 @@ class User extends Model
     {
         Validations::notEmpty('name', $this);
         Validations::notEmpty('email', $this);
+        Validations::notEmpty('phone', $this);
 
         Validations::uniqueness('email', $this);
-
+        Validations::uniqueness('phone', $this);
         if ($this->newRecord()) {
             Validations::passwordConfirmation($this);
         }
@@ -44,6 +46,16 @@ class User extends Model
     public static function findByEmail(string $email): User | null
     {
         return User::findBy(['email' => $email]);
+    }
+
+    public static function findByPhone(int $phone):User | null
+    {
+        return User::findBy(['phone' => $phone]);
+    }
+
+    public function setAdmin(bool $role_admin): void
+    {
+        $this->role_admin = $role_admin;
     }
 
     public function __set(string $property, mixed $value): void
