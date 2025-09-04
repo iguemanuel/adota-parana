@@ -2,47 +2,42 @@
 
 namespace App\Controllers;
 
-use Core\Http\Controllers\Controller;
 use Core\Http\Request;
-use Lib\Authentication\Auth;
+use App\Services\Auth;
 use Lib\FlashMessage;
 use App\Models\User;
 
-
 class AuthController
 {
-    public function showLoginForm(Request $request)
+    public function showLoginForm(Request $request): void
     {
-        $this->view('auth/login');
+        require __DIR__ . '/../Views/auth/login.php';
     }
 
-    public function login(Request $request)
+    public function login(Request $request): void
     {
-        $login = $request->post('login');
-        $password = $request->post('password');
+        $email = $request->input('email');
+        $password = $request->input('password');
+        
+        $user = User::where('email', $email)->first();
 
-        $user = User::findByEmail($login);
-        if (!$user && is_numeric($login)) {
-            $user = User::findByPhone((int)$login);
-        }
-
-        if (!$user || !$user->authenticate($password)) {
-            FlashMessage::danger('Login ou senha inválidos.');
-            header('Location: ' . route('/login'));
+        if ($user && password_verify($password, $user->password)) {
+            Auth::login($user);
+            FlashMessage::success('Login realizado com sucesso!');
+            header('Location: /'); // redireciona para home
             exit;
         }
-        
-        Auth::login($user);
 
-        FlashMessage::success('Bem-vindo(a), ' . $user->name);
-        header('Location: ' . route('/root'));
+        FlashMessage::danger('Credenciais inválidas.');
+        header('Location: /login');
         exit;
     }
 
-    public function logout(Request $request)
+    public function logout(Request $request): void
     {
-        Auth::logout($user); 
-        header('Location: ' . route('/login'));
+        Auth::logout();
+        FlashMessage::success('Você saiu da sua conta.');
+        header('Location: /login');
         exit;
     }
 }
