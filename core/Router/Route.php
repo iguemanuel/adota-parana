@@ -19,8 +19,7 @@ class Route
         private string $uri,
         private string $controllerName,
         private string $actionName
-    ) {
-    }
+    ) {}
 
     public function name(string $name): void
     {
@@ -112,6 +111,7 @@ class Route
     {
         return Router::getInstance()->addRoute(new Route('GET', $uri, $action[0], $action[1]));
     }
+
 
     /**
      * @param string $uri

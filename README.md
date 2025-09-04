@@ -13,7 +13,7 @@
 
 ```
 $ git clone https://github.com/iguemanuel/adota-parana.git
-$ cd problem-track
+$ cd adota-parana
 ```
 
 #### Define the env variables

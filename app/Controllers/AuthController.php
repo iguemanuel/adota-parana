@@ -11,20 +11,20 @@ class AuthController
 {
     public function showLoginForm(Request $request): void
     {
-        require __DIR__ . '/../Views/auth/login.php';
+        require __DIR__ . '/../views/auth/Login.php';
     }
 
     public function login(Request $request): void
     {
-        $email = $request->input('email');
-        $password = $request->input('password');
+        $email = $request->getParam('email');
+        $password = $request->getParam('password');
         
-        $user = User::where('email', $email)->first();
+        $user = User::findByEmail($email);
 
         if ($user && password_verify($password, $user->password)) {
             Auth::login($user);
             FlashMessage::success('Login realizado com sucesso!');
-            header('Location: /'); // redireciona para home
+            header('Location: /');
             exit;
         }
 

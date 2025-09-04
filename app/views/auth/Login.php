@@ -12,10 +12,9 @@
         <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 1rem;">
             <h3 class="text-center mb-4">Entrar</h3>
 
-            <!-- Mensagens de sucesso/erro -->
-            <?php if (\Lib\FlashMessage::hasMessages()): ?>
+            <?php if (\Lib\FlashMessage::get()): ?>
                 <div>
-                    <?php foreach (\Lib\FlashMessage::getMessages() as $message): ?>
+                    <?php foreach (\Lib\FlashMessage::get() as $message): ?>
                         <div class="alert alert-<?= $message['type'] ?> text-center">
                             <?= htmlspecialchars($message['text']) ?>
                         </div>
