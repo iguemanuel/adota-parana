@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index(): void
     {
-        $title = 'Home Page';
+        $title = 'Pagina Inicial - Adota Paraná';
         $this->render('home/index', compact('title'));
     }
 }

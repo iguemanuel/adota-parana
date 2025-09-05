@@ -1,4 +1,4 @@
-USE adota_parana;
+USE `adota_parana`;
 
 SET foreign_key_checks = 0;
 
