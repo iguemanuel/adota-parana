@@ -11,7 +11,7 @@ use Core\Database\ActiveRecord\Model;
  * @property string $email
  * @property string $encrypted_password
  * @property string $phone
- * @property bool $role_admin
+ * @property int $role_admin
  */
 
 class User extends Model
@@ -29,6 +29,7 @@ class User extends Model
 
         Validations::uniqueness('email', $this);
         Validations::uniqueness('phone', $this);
+
         if ($this->newRecord()) {
             Validations::passwordConfirmation($this);
         }
@@ -60,8 +61,15 @@ class User extends Model
 
     public function __set(string $property, mixed $value): void
     {
+        // Intercepta e sanitiza o valor de role_admin ANTES de ser atribuído.
+        // Isso força a conversão de (false, null, '') para o inteiro 0.
+        if ($property === 'role_admin') {
+            $value = (int)(bool)$value;
+        }
+
         parent::__set($property, $value);
 
+        // Lógica para criptografar a senha.
         if (
             $property === 'password' &&
             $this->newRecord() &&

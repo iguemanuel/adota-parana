@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Adota Paraná</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body class="bg-light">
 
@@ -12,15 +13,7 @@
         <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 1rem;">
             <h3 class="text-center mb-4">Entrar</h3>
 
-            <?php if (\Lib\FlashMessage::get()): ?>
-                <div>
-                    <?php foreach (\Lib\FlashMessage::get() as $message): ?>
-                        <div class="alert alert-<?= $message['type'] ?> text-center">
-                            <?= htmlspecialchars($message['text']) ?>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-            <?php endif; ?>
+            <?php require __DIR__ . '/../../views/layouts/_flash_message.phtml'; ?>
 
             <form action="/login" method="POST">
                 <div class="mb-3">
@@ -48,6 +41,10 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100">Entrar</button>
+
+                <div class="text-center mt-3">
+                    <a href="/register">Não tem uma conta? Crie uma aqui.</a>
+                </div>
             </form>
         </div>
     </div>

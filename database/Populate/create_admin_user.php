@@ -23,7 +23,7 @@ try {
 $name = 'Administrador';
 $email = 'admin@adota.com';
 $password = 'senha123'; // senha em texto puro
-$role_admin = 1;
+$role_admin = true;
 
 // Gerar hash da senha
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
