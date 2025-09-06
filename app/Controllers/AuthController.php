@@ -21,7 +21,7 @@ class AuthController
         
         $user = User::findByEmail($email);
 
-        if ($user && password_verify($password, $user->password)) {
+        if ($user && password_verify($password, $user->encrypted_password)) {
             Auth::login($user);
             FlashMessage::success('Login realizado com sucesso!');
             header('Location: /');
