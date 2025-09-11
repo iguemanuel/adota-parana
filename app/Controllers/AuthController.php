@@ -51,11 +51,18 @@ class AuthController
         $password = $request->getParam('password');
         
         $user = User::findByEmail($email);
+        var_dump($user->role_admin);
 
         if ($user && $user->authenticate($password)) {
             Auth::login($user);
             FlashMessage::success('Login realizado com sucesso!');
-            header('Location: /');
+            
+            if($user->role_admin){
+                header('Location: /admin/dashboard');
+            } else {
+                header('Location: /');
+            }
+
         } else {
             FlashMessage::danger('Credenciais inválidas.');
             header('Location: /login');
