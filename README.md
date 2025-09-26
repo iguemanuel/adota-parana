@@ -1,6 +1,6 @@
-## Problem Track
+## Adota Paraná
 
-"Problem Track" is the ultimate solution for organizations seeking to enhance their problem resolution processes, drive operational efficiency, and deliver exceptional customer experiences.
+"Adota Paraná" is a system that will allow users to carry out the process of adopting and donating domestic animals. Created with the aim of facilitating adoption and promoting animals in need of a home, the project emerges as a social initiative to reduce the number of abandoned animals.
 
 ### Dependências
 
@@ -12,8 +12,8 @@
 #### Clone Repository
 
 ```
-$ git clone git@github.com:SI-DABE/problem-track.git
-$ cd problem-track
+$ git clone https://github.com/iguemanuel/adota-parana.git
+$ cd adota-parana
 ```
 
 #### Define the env variables
