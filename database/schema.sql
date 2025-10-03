@@ -16,7 +16,7 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `encrypted_password` varchar(255) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `role_admin` boolean NOT NULL DEFAULT FALSE,
+  `role` varchar(50) NOT NULL DEFAULT 'User',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 );

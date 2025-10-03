@@ -28,7 +28,7 @@ class AuthController
         $user->phone = $phone;
         $user->password = $password;
         $user->password_confirmation = $password_confirmation;
-        $user->role_admin = false;
+        $user->role = 'User';
 
         if ($user->save()) {
             FlashMessage::success('Registro realizado com sucesso! Efetue o login.');
@@ -51,13 +51,12 @@ class AuthController
         $password = $request->getParam('password');
         
         $user = User::findByEmail($email);
-        var_dump($user->role_admin);
-
+        
         if ($user && $user->authenticate($password)) {
             Auth::login($user);
             FlashMessage::success('Login realizado com sucesso!');
-            
-            if($user->role_admin){
+
+            if($user->role === 'Admin'){
                 header('Location: /admin/dashboard');
             } else {
                 header('Location: /');
