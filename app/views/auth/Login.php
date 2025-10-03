@@ -6,6 +6,9 @@
     <title>Login - Adota Paraná</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+
+    </style>
 </head>
 <body class="bg-light">
 
@@ -15,7 +18,7 @@
 
             <?php require __DIR__ . '/../../views/layouts/_flash_message.phtml'; ?>
 
-            <form action="/login" method="POST">
+            <form action="/login" method="POST" novalidate>
                 <div class="mb-3">
                     <label for="email" class="form-label">E-mail</label>
                     <input 
