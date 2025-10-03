@@ -13,7 +13,7 @@ class Admin implements Middleware
     {
         $user = Auth::user();
 
-        if (!$user || !$user->role_admin) {
+        if (!$user || $user->role !== 'Admin') {
             FlashMessage::danger('Você não tem permissão para acessar esta página.');
             header('Location: /');
             exit;
