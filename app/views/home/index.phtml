@@ -72,9 +72,9 @@ $currentUser = \App\Services\Auth::user();
             <h1 class="display-4 mb-3 home_title">Adota Paraná</h1>
             <p class="lead mb-1">Conectamos animais que precisam de um lar a pessoas com um grande coração.</p>
             <?php if($currentUser): ?>
-                <p class="lead mb-4">Bem Vindo, você é um <?= htmlspecialchars($currentUser->role) ?></p>
+                <p class="lead">Bem Vindo, você é um <?= htmlspecialchars($currentUser->role) ?></p>
             <?php endif; ?>
-            <div class="">
+            <div class="mt-1">
                <?php if ($currentUser): ?>
                 <a href="/admin/dashboard" class="btn register_btn btn-warning btn-ligth btn-lg px-4 gap-3 me-2">Admin</a>
                 <form action="/logout" method="POST" style="display:inline;">
