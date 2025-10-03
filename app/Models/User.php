@@ -56,7 +56,7 @@ class User extends Model
 
     public function isAdmin(): bool
     {
-        return $this->role === 'Admin';
+        return $this->role === 'admin';
     }
 
     public function __set(string $property, mixed $value): void

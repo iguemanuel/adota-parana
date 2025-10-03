@@ -72,7 +72,7 @@ class AuthController
     {
         Auth::logout();
         FlashMessage::success('Você saiu da sua conta.');
-        header('Location: /login');
+        header('Location: /');
         exit;
     }
 }
