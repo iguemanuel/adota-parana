@@ -17,7 +17,7 @@ use Core\Database\ActiveRecord\Model;
 class User extends Model
 {
     protected static string $table = 'users';
-    protected static array $columns = ['name', 'email', 'encrypted_password', 'phone', 'role_admin'];
+    protected static array $columns = ['name', 'email', 'encrypted_password', 'phone', 'role'];
     protected ?string $password = null;
     protected ?string $password_confirmation = null;
 
@@ -36,12 +36,25 @@ class User extends Model
     }
 
     public function authenticate(string $password): bool
-    {
-        if ($this->encrypted_password == null) {
-            return false;
-        }
+        {
+    if ($this->encrypted_password === null) {
+        return false;
+    }
 
-        return password_verify($password, $this->encrypted_password);
+    $hash = $this->encrypted_password;
+
+    // Caso seja bcrypt/argon (começa com $2y$, $2a$, $2b$, ou $argon2i/argon2id)
+    if (preg_match('/^\$2[aby]\$/', $hash) || str_starts_with($hash, '$argon2')) {
+        return password_verify($password, $hash);
+    }
+
+    // Caso seja SHA2-256 (64 caracteres hexadecimais)
+    if (preg_match('/^[0-9a-f]{64}$/i', $hash)) {
+        return hash('sha256', $password) === $hash;
+    }
+
+        // Nenhum formato reconhecido
+        return false;
     }
 
     public static function findByEmail(string $email): User | null
@@ -54,22 +67,15 @@ class User extends Model
         return User::findBy(['phone' => $phone]);
     }
 
-    public function setAdmin(bool $role_admin): void
+    public function isAdmin(): bool
     {
-        $this->role_admin = $role_admin;
+        return $this->role === 'admin';
     }
 
     public function __set(string $property, mixed $value): void
     {
-        // Intercepta e sanitiza o valor de role_admin ANTES de ser atribuído.
-        // Isso força a conversão de (false, null, '') para o inteiro 0.
-        if ($property === 'role_admin') {
-            $value = (int)(bool)$value;
-        }
-
         parent::__set($property, $value);
 
-        // Lógica para criptografar a senha.
         if (
             $property === 'password' &&
             $this->newRecord() &&

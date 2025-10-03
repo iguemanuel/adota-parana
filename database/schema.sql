@@ -16,7 +16,7 @@ CREATE TABLE `users` (
   `email` varchar(50) NOT NULL,
   `encrypted_password` varchar(255) NOT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `role_admin` boolean NOT NULL DEFAULT FALSE,
+  `role` varchar(50) NOT NULL DEFAULT 'user',
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
 );
@@ -73,5 +73,11 @@ CREATE TABLE `moderation` (
   FOREIGN KEY (`report_id`) REFERENCES `reports` (`id`),
   FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`)
 );
+
+INSERT INTO `users` (`name`, `email`, `encrypted_password`, `role`)
+VALUES ('Admin', 'admin@gmail.com', SHA2('123456', 256), 'admin');
+
+INSERT INTO `users` (`name`, `email`, `encrypted_password`, `role`)
+VALUES ('User', 'user@gmail.com', SHA2('123456', 256), 'user');
 
 SET foreign_key_checks = 1;
