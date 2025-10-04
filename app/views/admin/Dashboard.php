@@ -3,7 +3,7 @@
 
 <div class="container">
     <h1>Painel Administrativo</h1>
-    <p>Bem-vindo, <?= htmlspecialchars($user->role ? 'Administrador' : 'Usuário') ?>!</p>
+    <p>Bem-vindo, <?= htmlspecialchars($user->role === 'admin' ? 'Administrador' : 'Usuário') ?>!</p>
 
     <div class="stats">
         <div class="card">

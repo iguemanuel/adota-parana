@@ -1,3 +1,4 @@
+CREATE DATABASE IF NOT EXISTS `adota_parana`; 
 USE `adota_parana`;
 
 SET foreign_key_checks = 0;
