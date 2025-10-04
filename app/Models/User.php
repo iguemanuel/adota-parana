@@ -36,12 +36,25 @@ class User extends Model
     }
 
     public function authenticate(string $password): bool
-    {
-        if ($this->encrypted_password == null) {
-            return false;
-        }
+        {
+    if ($this->encrypted_password === null) {
+        return false;
+    }
 
-        return password_verify($password, $this->encrypted_password);
+    $hash = $this->encrypted_password;
+
+    // Caso seja bcrypt/argon (começa com $2y$, $2a$, $2b$, ou $argon2i/argon2id)
+    if (preg_match('/^\$2[aby]\$/', $hash) || str_starts_with($hash, '$argon2')) {
+        return password_verify($password, $hash);
+    }
+
+    // Caso seja SHA2-256 (64 caracteres hexadecimais)
+    if (preg_match('/^[0-9a-f]{64}$/i', $hash)) {
+        return hash('sha256', $password) === $hash;
+    }
+
+        // Nenhum formato reconhecido
+        return false;
     }
 
     public static function findByEmail(string $email): User | null
@@ -56,7 +69,7 @@ class User extends Model
 
     public function isAdmin(): bool
     {
-        return $this->role === 'Admin';
+        return $this->role === 'admin';
     }
 
     public function __set(string $property, mixed $value): void
