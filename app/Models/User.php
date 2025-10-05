@@ -11,7 +11,7 @@ use Core\Database\ActiveRecord\Model;
  * @property string $email
  * @property string $encrypted_password
  * @property string $phone
- * @property int $role_admin
+ * @property string $role
  */
 
 class User extends Model

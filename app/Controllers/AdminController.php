@@ -10,7 +10,7 @@ use App\Models\User;
 class AdminController
 {
 
-    public function index(Request $request)
+    public function index(Request $request):string
     {
         $stats = [
             'users' => 120,
@@ -20,17 +20,17 @@ class AdminController
         return $this->view('admin/Dashboard', compact('stats'));
     }
 
-    public function users(Request $request)
+    public function users(Request $request):string
     {
         $users = \App\Models\User::all();
 
         return $this->view('admin/users', compact('users'));
     }
 
-        protected function view(string $path, array $data = [])
+    protected function view(string $path, array $data = []): string
     {
         extract($data); // transforma array em variáveis
         $user = \App\Services\Auth::user(); // usuário logado, se quiser disponível
-        include __DIR__ . "/../views/{$path}.php";
+        return include __DIR__ . "/../views/{$path}.php";
     }
 }
