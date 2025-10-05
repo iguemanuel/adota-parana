@@ -19,7 +19,7 @@ class UserTest extends TestCase
             'email' => 'fulano@example.com',
             'encrypted_password' => password_hash('123456', PASSWORD_DEFAULT),
             'phone' => '42991234567',
-            'role' => 'User'
+            'role' => 'user'
         ]);
         $this->user->save();
 
@@ -28,7 +28,7 @@ class UserTest extends TestCase
             'email' => 'fulano1@example.com',
             'encrypted_password' => password_hash('123456', PASSWORD_DEFAULT),
             'phone' => '42991234568',
-            'role' => 'Admin'
+            'role' => 'admin'
         ]);
         $this->user2->save();
     }
@@ -143,7 +143,7 @@ class UserTest extends TestCase
             'name' => 'Another User',
             'email' => 'fulano@example.com',
             'phone' => '42998765432',
-            'role' => 'User'
+            'role' => 'user'
         ]);
 
         $this->assertFalse($newUser->isValid());
