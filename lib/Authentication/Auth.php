@@ -11,7 +11,6 @@ class Auth
         $_SESSION['user'] = [
             'id' => $user->id,
             'name' => $user->name,
-            'role_admin' => $user->role_admin
         ];        
     }
 

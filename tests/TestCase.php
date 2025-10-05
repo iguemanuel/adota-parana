@@ -13,11 +13,6 @@ class TestCase extends FrameworkTestCase
         Database::migrate();
     }
 
-    public function tearDown(): void
-    {
-        Database::drop();
-    }
-
     protected function getOutput(callable $callable): string
     {
         ob_start();
